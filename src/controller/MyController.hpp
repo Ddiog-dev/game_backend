@@ -6,6 +6,7 @@
 #define GAME_BACKEND_MYCONTROLLER_HPP
 
 #include "../dto/DTOs.hpp"
+#include "../dto/buildings/Building.hpp"
 
 #include "oatpp/web/server/api/ApiController.hpp"
 #include "oatpp/core/macro/codegen.hpp"
@@ -22,28 +23,38 @@ public:
      * Constructor with object mapper.
      * @param objectMapper - default object mapper used to serialize/deserialize DTOs.
      */
-    MyController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper))
+    explicit MyController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper))
             : oatpp::web::server::api::ApiController(objectMapper)
     {}
 public:
 
     ENDPOINT("GET", "/hello", root) {
-        auto dto = MessageDto::createShared();
-        dto->statusCode = 200;
-        dto->message = "Hello World!";
-        return createDtoResponse(Status::CODE_200, dto);
+        auto dto = Building_Informations::Building::createShared();
+        dto->getBuilding(Building_Informations::Building_Type::FORUM);
+        std::shared_ptr<OutgoingResponse> response = createDtoResponse(Status::CODE_200, dto);
+        MyController::add_response(response);
+        return response;
     }
 
+    ADD_CORS(arg)
     ENDPOINT("GET", "/failure", arg) {
         auto dto = MessageDto::createShared();
         dto->statusCode = 500;
         dto->message = "server internal error";
-        return createDtoResponse(Status::CODE_500, dto);
+        std::shared_ptr<OutgoingResponse> response = createDtoResponse(Status::CODE_500, dto);
+        MyController::add_response(response);
+        return response;
     }
 
 
     // TODO Insert Your endpoints here !!!
 
+private:
+    static void add_response(std::shared_ptr<OutgoingResponse> &response){
+        response->putHeaderIfNotExists("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS, DELETE");
+        response->putHeaderIfNotExists("Access-Control-Allow-Origin", "*");
+        response->putHeaderIfNotExists("Access-Control-Max-Age", "1728000");
+    }
 };
 
 #include OATPP_CODEGEN_END(ApiController) ///< End Codegen
