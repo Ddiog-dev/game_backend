@@ -33,33 +33,25 @@ namespace Building_Informations {
         DTO_FIELD(Object<Tier>, tier);     // Message field
         DTO_FIELD(List<Object<TierList>>, allTier);     // Message field
     public:
-        void getBuilding(Building_Type building) {
+        static string getBuilding(int building) {
             switch (building) {
                 case TAVERN:
-                    this->readBuildingJSON("src/assets/buildings/tavern.json");
-                    break;
+                    return Building::readBuildingJSON("C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/tavern.json");
                 case FORUM:
-                    this->readBuildingJSON("C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/forum.json");
-                    break;
-                default:;
+                    return Building::readBuildingJSON("C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/forum.json");
+                default:
+                    return Building::readBuildingJSON("C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/forum.json");
+
             }
         };
 
     private:
-        void readBuildingJSON(const string &path) {
+        static string readBuildingJSON(const string &path) {
             std::ifstream i(path);
             json buildingJSON;
             i >> buildingJSON;
-            /* create json ObjectMapper with default configs */
-            auto jsonObjectMapper = oatpp::parser::json::mapping::ObjectMapper::createShared();
-            auto cloneOfUser = jsonObjectMapper->readFromString<oatpp::Object<Building_Informations::Building>>(buildingJSON.dump());
-            this->name = cloneOfUser-> name;
-            this->level = cloneOfUser -> level;
-            this->description = cloneOfUser -> description;
-            this->tier = cloneOfUser -> tier;
-            this->allTier = cloneOfUser -> allTier;
-
-        };
+            return buildingJSON.dump();
+        }
     };
 }
 /* End DTO code-generation */

@@ -11,15 +11,12 @@
 /**
  * Message Data-Transfer-Object
  */
-class MessageDto : public oatpp::DTO {
+class BuildingDto : public oatpp::DTO {
 
-    DTO_INIT(MessageDto, DTO /* Extends */)
-
-    DTO_FIELD(Int32, statusCode);   // Status code field
-    DTO_FIELD(String, message);     // Message field
+    DTO_INIT(BuildingDto, DTO /* Extends */)
+    DTO_FIELD(String, building);     // Message field
 
 };
-
 /* TODO - Add more DTOs here */
 
 /* End DTO code-generation */

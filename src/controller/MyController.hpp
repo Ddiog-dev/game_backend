@@ -28,24 +28,13 @@ public:
     {}
 public:
 
-    ENDPOINT("GET", "/hello", root) {
-        auto dto = Building_Informations::Building::createShared();
-        dto->getBuilding(Building_Informations::Building_Type::FORUM);
+    ENDPOINT("GET", "/building/{id}", building,  PATH(Int32 , id)) {
+        auto dto = BuildingDto::createShared();
+        dto->building = Building_Informations::Building::getBuilding(id);
         std::shared_ptr<OutgoingResponse> response = createDtoResponse(Status::CODE_200, dto);
         MyController::add_response(response);
         return response;
     }
-
-    ADD_CORS(arg)
-    ENDPOINT("GET", "/failure", arg) {
-        auto dto = MessageDto::createShared();
-        dto->statusCode = 500;
-        dto->message = "server internal error";
-        std::shared_ptr<OutgoingResponse> response = createDtoResponse(Status::CODE_500, dto);
-        MyController::add_response(response);
-        return response;
-    }
-
 
     // TODO Insert Your endpoints here !!!
 
