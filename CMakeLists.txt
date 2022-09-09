@@ -8,12 +8,12 @@ add_library(game_backend-lib
         src/AppComponent.hpp
         src/controller/MyController.cpp
         src/controller/MyController.hpp
-        src/dto/DTOs.hpp
-        src/dto/buildings/Building.cpp
-        src/dto/buildings/Building.hpp
-        src/dto/Tier.hpp
-        src/dto/state/GoldState.hpp
-        src/dto/state/ManaState.hpp)
+        src/models/DTOs.hpp
+        src/models/buildings/Building.cpp
+        src/models/buildings/Building.hpp
+        src/models/Tier.hpp
+        src/models/state/GoldState.hpp
+        src/models/state/ManaState.hpp)
 
 ## link libs
 find_package(oatpp)

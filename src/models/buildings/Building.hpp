@@ -8,8 +8,13 @@
 #include "oatpp/core/data/mapping/type/Object.hpp"
 #include "oatpp/core/macro/codegen.hpp"
 #include "oatpp/parser/json/mapping/ObjectMapper.hpp"
+#include "oatpp/core/data/stream/FileStream.hpp"
+#include "oatpp/web/server/api/ApiController.hpp"
 #include "../Tier.hpp"
 #include <fstream>
+#include "oatpp/parser/json/mapping/ObjectMapper.hpp"
+
+
 
 #ifndef GAME_BACKEND_BUILDING_H
 #define GAME_BACKEND_BUILDING_H
@@ -20,6 +25,9 @@ using namespace std;
 using json = nlohmann::json;
 
 namespace Building_Informations {
+
+
+/* create json ObjectMapper with default configs */
     enum Building_Type {
         TAVERN,
         FORUM
@@ -35,7 +43,7 @@ namespace Building_Informations {
         DTO_FIELD(List < List < Object < Tier>>>, allTier);     // Message field
 
     public:
-        static string getBuilding(int building) {
+        static string getBuilding(int building, shared_ptr<oatpp::data::mapping::ObjectMapper> mapper) {
             switch (building) {
                 case TAVERN:
                     return Building::readBuildingJSON(
@@ -47,6 +55,11 @@ namespace Building_Informations {
 
             }
         };
+
+        static void setState(const shared_ptr<oatpp::web::protocol::http::incoming::Request> request) {
+            oatpp::data::stream::FileOutputStream fileOutputStream("C:/Users/alexi/CLionProjects/game-backend/src/assets/state/state.json");
+            request->transferBodyToStream(&fileOutputStream); // transfer body chunk by chunk
+        }
 
     private:
         static string readBuildingJSON(const string &path) {

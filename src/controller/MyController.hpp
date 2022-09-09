@@ -5,8 +5,8 @@
 #ifndef GAME_BACKEND_MYCONTROLLER_HPP
 #define GAME_BACKEND_MYCONTROLLER_HPP
 
-#include "../dto/DTOs.hpp"
-#include "../dto/buildings/Building.hpp"
+#include "../models/DTOs.hpp"
+#include "../models/buildings/Building.hpp"
 
 #include "oatpp/web/server/api/ApiController.hpp"
 #include "oatpp/core/macro/codegen.hpp"
@@ -14,7 +14,7 @@
 #include "oatpp/core/data/stream/FileStream.hpp"
 
 #include OATPP_CODEGEN_BEGIN(ApiController) ///< Begin Codegen
-#include "dto/state/GoldState.hpp"
+#include "models/state/GoldState.hpp"
 
 /**
  * Sample Api Controller.
@@ -27,9 +27,7 @@ public:
      */
     explicit MyController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper))
             : oatpp::web::server::api::ApiController(objectMapper)
-    {
-        objectMapper->re
-    }
+    {}
 public:
 
 
@@ -37,7 +35,7 @@ public:
 
     ENDPOINT("GET", "/building/{id}", building,  PATH(Int32 , id)) {
         auto dto = BuildingDto::createShared();
-        dto->building = Building_Informations::Building::getBuilding(id);
+        dto->building = Building_Informations::Building::getBuilding(id,this->getDefaultObjectMapper());
         std::shared_ptr<OutgoingResponse> response = createDtoResponse(Status::CODE_200, dto);
         MyController::add_response(response);
         return response;
@@ -45,9 +43,7 @@ public:
 
     ADD_CORS(state);
     ENDPOINT("POST", "/game/state", state, REQUEST(std::shared_ptr<IncomingRequest>, request)) {
-
-        oatpp::data::stream::FileOutputStream fileOutputStream("C:\\Users\\alexi\\CLionProjects\\game-backend\\src\\assets\\state\\state.json");
-        request->transferBodyToStream(&fileOutputStream); // transfer body chunk by chunk
+        Building_Informations::Building::setState(request);
         auto response = createResponse(Status::CODE_200, "OK");
         MyController::add_response(response);
         return response;
