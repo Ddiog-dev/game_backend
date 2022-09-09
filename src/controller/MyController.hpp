@@ -11,8 +11,10 @@
 #include "oatpp/web/server/api/ApiController.hpp"
 #include "oatpp/core/macro/codegen.hpp"
 #include "oatpp/core/macro/component.hpp"
+#include "oatpp/core/data/stream/FileStream.hpp"
 
 #include OATPP_CODEGEN_BEGIN(ApiController) ///< Begin Codegen
+#include "dto/state/GoldState.hpp"
 
 /**
  * Sample Api Controller.
@@ -25,13 +27,28 @@ public:
      */
     explicit MyController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper))
             : oatpp::web::server::api::ApiController(objectMapper)
-    {}
+    {
+        objectMapper->re
+    }
 public:
+
+
+
 
     ENDPOINT("GET", "/building/{id}", building,  PATH(Int32 , id)) {
         auto dto = BuildingDto::createShared();
         dto->building = Building_Informations::Building::getBuilding(id);
         std::shared_ptr<OutgoingResponse> response = createDtoResponse(Status::CODE_200, dto);
+        MyController::add_response(response);
+        return response;
+    }
+
+    ADD_CORS(state);
+    ENDPOINT("POST", "/game/state", state, REQUEST(std::shared_ptr<IncomingRequest>, request)) {
+
+        oatpp::data::stream::FileOutputStream fileOutputStream("C:\\Users\\alexi\\CLionProjects\\game-backend\\src\\assets\\state\\state.json");
+        request->transferBodyToStream(&fileOutputStream); // transfer body chunk by chunk
+        auto response = createResponse(Status::CODE_200, "OK");
         MyController::add_response(response);
         return response;
     }

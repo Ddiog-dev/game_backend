@@ -12,7 +12,8 @@ add_library(game_backend-lib
         src/dto/buildings/Building.cpp
         src/dto/buildings/Building.hpp
         src/dto/Tier.hpp
-        )
+        src/dto/state/GoldState.hpp
+        src/dto/state/ManaState.hpp)
 
 ## link libs
 find_package(oatpp)
@@ -22,7 +23,7 @@ target_link_libraries(game_backend-lib
         )
 
 set(JSON_BuildTests OFF CACHE INTERNAL "")
-add_subdirectory(json)
+add_subdirectory(include/json)
 target_link_libraries(game_backend-lib
         PUBLIC nlohmann_json::nlohmann_json
         )
@@ -34,8 +35,7 @@ target_include_directories(game_backend-lib PUBLIC src)
 
 add_executable(game_backend-exe
         src/main.cpp
-        test/app/MyApiTestClient.hpp
-        )
+        test/app/MyApiTestClient.hpp)
 
 target_link_libraries(game_backend-exe game_backend-lib)
 add_dependencies(game_backend-exe game_backend-lib)
