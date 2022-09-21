@@ -15,6 +15,7 @@
 
 #include OATPP_CODEGEN_BEGIN(ApiController) ///< Begin Codegen
 #include "models/state/GoldState.hpp"
+#include "models/state/State.hpp"
 
 /**
  * Sample Api Controller.
@@ -26,16 +27,14 @@ public:
      * @param objectMapper - default object mapper used to serialize/deserialize DTOs.
      */
     explicit MyController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper))
-            : oatpp::web::server::api::ApiController(objectMapper)
-    {}
+            : oatpp::web::server::api::ApiController(objectMapper) {}
+
 public:
 
 
-
-
-    ENDPOINT("GET", "/building/{id}", building,  PATH(Int32 , id)) {
+    ENDPOINT("GET", "/building/{id}", building, PATH(Int32, id)) {
         auto dto = BuildingDto::createShared();
-        dto->building = Building_Informations::Building::getBuilding(id,this->getDefaultObjectMapper());
+        dto->building = Building_Informations::Building::getBuilding(id);
         std::shared_ptr<OutgoingResponse> response = createDtoResponse(Status::CODE_200, dto);
         MyController::add_response(response);
         return response;
@@ -43,7 +42,7 @@ public:
 
     ADD_CORS(state);
     ENDPOINT("POST", "/game/state", state, REQUEST(std::shared_ptr<IncomingRequest>, request)) {
-        Building_Informations::Building::setState(request);
+        State::setState(request);
         auto response = createResponse(Status::CODE_200, "OK");
         MyController::add_response(response);
         return response;
@@ -52,7 +51,7 @@ public:
     // TODO Insert Your endpoints here !!!
 
 private:
-    static void add_response(std::shared_ptr<OutgoingResponse> &response){
+    static void add_response(std::shared_ptr<OutgoingResponse> &response) {
         response->putHeaderIfNotExists("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS, DELETE");
         response->putHeaderIfNotExists("Access-Control-Allow-Origin", "*");
         response->putHeaderIfNotExists("Access-Control-Max-Age", "1728000");

@@ -43,7 +43,12 @@ namespace Building_Informations {
         DTO_FIELD(List < List < Object < Tier>>>, allTier);     // Message field
 
     public:
-        static string getBuilding(int building, shared_ptr<oatpp::data::mapping::ObjectMapper> mapper) {
+
+        static oatpp::data::mapping::type::DTOWrapper<Building> getBuilding(int building, shared_ptr<oatpp::data::mapping::ObjectMapper> mapper){
+            return mapper->readFromString<oatpp::Object<Building>>(Building::getBuilding(building));
+        }
+
+        static string getBuilding(int building) {
             switch (building) {
                 case TAVERN:
                     return Building::readBuildingJSON(
