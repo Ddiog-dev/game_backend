@@ -43,7 +43,15 @@ public:
     ADD_CORS(state);
     ENDPOINT("POST", "/game/state", state, REQUEST(std::shared_ptr<IncomingRequest>, request)) {
         State::setState(request);
-        auto response = createResponse(Status::CODE_200, "OK");
+        auto response = createResponse(Status::CODE_200, "");
+        MyController::add_response(response);
+        return response;
+    }
+
+    ENDPOINT("GET", "/game/state", stateGet) {
+        auto dto = State::createShared();
+        dto = State::getState();
+        std::shared_ptr<OutgoingResponse> response = createDtoResponse(Status::CODE_200, dto);
         MyController::add_response(response);
         return response;
     }

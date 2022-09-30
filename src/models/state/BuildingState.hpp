@@ -15,7 +15,7 @@
 
 #include OATPP_CODEGEN_BEGIN(DTO)
 
-namespace buildingStateRepresentation {
+namespace BuildingStateRepresentation {
 
     class BuildingSimplified : public oatpp::DTO  {
         DTO_INIT(BuildingSimplified, DTO /* Extends */)
@@ -26,11 +26,7 @@ namespace buildingStateRepresentation {
 
     class BuildingState : public oatpp::DTO {
         DTO_INIT(BuildingState, DTO /* Extends */)
-
         DTO_FIELD(List<Object<BuildingSimplified>>, buildings);   // Status code field
-    public:
-
-    private:
     };
 }
 #endif //GAME_BACKEND_BUILDINGSTATE_HPP

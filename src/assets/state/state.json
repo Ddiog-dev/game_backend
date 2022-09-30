@@ -1,1 +1,1 @@
-{"storeState":{"mana":{"amount":0,"income":0},"gold":{"amount":23,"income":2},"building":{"buildings":[{"name":"Forum","tier":{"description":"","income":1,"incomeType":"Gold","cost":1}},{"name":"Tavern","tier":{"description":"","income":0,"incomeType":"Gold","cost":50}}]}}}
+{"mana":{"amount":0,"income":0},"gold":{"amount":11,"income":2},"building":{"buildings":[]}}

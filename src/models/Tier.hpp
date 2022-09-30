@@ -14,10 +14,10 @@
 class Tier : public oatpp::DTO {
     DTO_INIT(Tier, DTO /* Extends */)
 
-    DTO_FIELD(Int32, income);   // Status code field
-    DTO_FIELD(Int32, cost);   // Status code field
     DTO_FIELD(String, description);     // Message field
+    DTO_FIELD(Int32, income);   // Status code field
     DTO_FIELD(String, incomeType);     // Message field
+    DTO_FIELD(Int32, cost);   // Status code field
 };
 
 #include OATPP_CODEGEN_END(DTO)
