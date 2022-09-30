@@ -16,10 +16,9 @@
 #define GAME_BACKEND_STATE_HPP
 
 #include OATPP_CODEGEN_BEGIN(DTO)
+#include "utils/ObjectFileMapper.hpp"
 #include <iostream>
 #include <fstream>
-#include <string>
-
 
 using namespace std;
 
@@ -38,23 +37,7 @@ public:
     }
 
     static oatpp::data::mapping::type::DTOWrapper<State> getState(){
-        String wholeText ="";
-        /* create json ObjectMapper with default configs */
-        ifstream stateFile("C:/Users/alexi/CLionProjects/game-backend/src/assets/state/state.json",ios_base::in);
-        if (stateFile.is_open()) {
-            char c;
-            while (stateFile.get(c)){
-               wholeText->push_back(c);
-            }
-        }
-        auto jsonObjectMapper = oatpp::parser::json::mapping::ObjectMapper::createShared();
-        try {
-            auto cloneOfUser = jsonObjectMapper->readFromString<oatpp::Object<State>>(wholeText);
-            return cloneOfUser;
-        } catch (oatpp::parser::ParsingError parsingError){
-            std::cout << parsingError.getMessage().operator std::string();
-            throw parsingError;
-        }
+        return ObjectFileMapper::readFromFile<State>("C:/Users/alexi/CLionProjects/game-backend/src/assets/state/state.json");
     }
 
 private:

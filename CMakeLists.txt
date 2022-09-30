@@ -13,7 +13,7 @@ add_library(game_backend-lib
         src/models/buildings/Building.hpp
         src/models/Tier.hpp
         src/models/state/GoldState.hpp
-        src/models/state/ManaState.hpp src/models/state/State.hpp src/models/state/BuildingState.hpp)
+        src/models/state/ManaState.hpp src/models/state/State.hpp src/models/state/BuildingState.hpp src/utils/ObjectFileMapper.hpp)
 
 ## link libs
 find_package(oatpp)
