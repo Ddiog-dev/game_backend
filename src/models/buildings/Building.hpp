@@ -20,6 +20,7 @@
 #define GAME_BACKEND_BUILDING_H
 
 #include OATPP_CODEGEN_BEGIN(DTO)
+#include "utils/ObjectFileMapper.hpp"
 
 using namespace std;
 using json = nlohmann::json;
@@ -33,6 +34,13 @@ namespace Building_Informations {
         FORUM
     };
 
+    const string filesPaths[] = {
+            "C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/tavern.json",
+            "C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/forum.json"
+    };
+
+
+
     class Building : public oatpp::DTO {
         DTO_INIT(Building, DTO /* Extends */)
 
@@ -43,36 +51,10 @@ namespace Building_Informations {
         DTO_FIELD(List < List < Object < Tier>>>, allTier);     // Message field
 
     public:
-
-        static oatpp::data::mapping::type::DTOWrapper<Building> getBuilding(int building, shared_ptr<oatpp::data::mapping::ObjectMapper> mapper){
-            return mapper->readFromString<oatpp::Object<Building>>(Building::getBuilding(building));
-        }
-
-        static string getBuilding(int building) {
-            switch (building) {
-                case TAVERN:
-                    return Building::readBuildingJSON(
-                            "C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/tavern.json");
-                case FORUM:
-                default:
-                    return Building::readBuildingJSON(
-                            "C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/forum.json");
-
-            }
+        static oatpp::data::mapping::type::DTOWrapper<Building> getBuilding(int building) {
+            assert(building >= 0 && building < filesPaths->length());
+            return ObjectFileMapper::readFromFile<Building>(filesPaths[building]);
         };
-
-        static void setState(const shared_ptr<oatpp::web::protocol::http::incoming::Request> request) {
-            oatpp::data::stream::FileOutputStream fileOutputStream("C:/Users/alexi/CLionProjects/game-backend/src/assets/state/state.json");
-            request->transferBodyToStream(&fileOutputStream); // transfer body chunk by chunk
-        }
-
-    private:
-        static string readBuildingJSON(const string &path) {
-            std::ifstream i(path);
-            json buildingJSON;
-            i >> buildingJSON;
-            return buildingJSON.dump();
-        }
     };
 }
 /* End DTO code-generation */

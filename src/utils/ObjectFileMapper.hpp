@@ -24,8 +24,9 @@ namespace ObjectFileMapper {
         /* read file */
         string wholeText;
         if (stateFile.is_open()) {
-            while (stateFile.good()){
-                stateFile >> wholeText;
+            char c;
+            while (stateFile.get(c)){
+                wholeText.push_back(c);
             }
         }
         /* Map to type T*/

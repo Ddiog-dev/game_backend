@@ -33,8 +33,8 @@ public:
 
 
     ENDPOINT("GET", "/building/{id}", building, PATH(Int32, id)) {
-        auto dto = BuildingDto::createShared();
-        dto->building = Building_Informations::Building::getBuilding(id);
+        auto dto = Building_Informations::Building::createShared();
+        dto = Building_Informations::Building::getBuilding(id);
         std::shared_ptr<OutgoingResponse> response = createDtoResponse(Status::CODE_200, dto);
         MyController::add_response(response);
         return response;
