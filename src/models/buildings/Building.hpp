@@ -23,7 +23,6 @@
 #include "utils/ObjectFileMapper.hpp"
 
 using namespace std;
-using json = nlohmann::json;
 
 namespace Building_Informations {
 
@@ -47,12 +46,12 @@ namespace Building_Informations {
         DTO_FIELD(Int32, level);   // Status code field
         DTO_FIELD(String, name);     // Message field
         DTO_FIELD(String, description);     // Message field
-        DTO_FIELD(Object < Tier >, tier);     // Message field
-        DTO_FIELD(List < List < Object < Tier>>>, allTier);     // Message field
+        DTO_FIELD(Object<Tier >, tier);     // Message field
+        DTO_FIELD(List<List<Object<Tier>>>, allTiers);     // Message field
 
     public:
         static oatpp::data::mapping::type::DTOWrapper<Building> getBuilding(int building) {
-            assert(building >= 0 && building < filesPaths->length());
+            //assert(building >= 0 && building < filesPaths->length());
             return ObjectFileMapper::readFromFile<Building>(filesPaths[building]);
         };
     };
