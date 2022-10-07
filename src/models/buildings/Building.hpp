@@ -30,12 +30,16 @@ namespace Building_Informations {
 /* create json ObjectMapper with default configs */
     enum Building_Type {
         TAVERN,
-        FORUM
+        FORUM,
+        MINE,
+        POTION_SHOP
     };
 
     const string filesPaths[] = {
             "C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/tavern.json",
-            "C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/forum.json"
+            "C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/forum.json",
+            "C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/mine.json",
+            "C:/Users/alexi/CLionProjects/game-backend/src/assets/buildings/potion-shop.json",
     };
 
 
@@ -52,7 +56,11 @@ namespace Building_Informations {
     public:
         static oatpp::data::mapping::type::DTOWrapper<Building> getBuilding(int building) {
             //assert(building >= 0 && building < filesPaths->length());
-            return ObjectFileMapper::readFromFile<Building>(filesPaths[building]);
+            try{
+                return ObjectFileMapper::readFromFile<Building>(filesPaths[building]);
+            } catch (runtime_error &error){
+                cout << "read file error : " << error.what() << endl;
+            }
         };
     };
 }

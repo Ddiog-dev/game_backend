@@ -33,9 +33,9 @@ namespace ObjectFileMapper {
         try {
             auto cloneOfUser = jsonObjectMapper->readFromString<oatpp::Object<T>>(wholeText);
             return cloneOfUser;
-        } catch (const oatpp::parser::ParsingError &parsingError){
+        } catch (oatpp::parser::ParsingError &parsingError){
             std::cout << parsingError.getMessage().operator std::string();
-            throw parsingError;
+            throw oatpp::parser::ParsingError(parsingError);
         }
     }
 }
