@@ -1,0 +1,43 @@
+{
+  "name": "knight",
+  "level": 1,
+  "hp": {
+    "maximum": 0,
+    "current": 0
+  },
+  "mana": {
+    "maximum": 0,
+    "current": 0
+  },
+  "atk": {
+    "maximum": 0,
+    "current": 0
+  },
+  "def": {
+    "maximum": 0,
+    "current": 0
+  },
+  "capacities": [
+    {
+      "name": "Slash attack",
+      "description": "does lots of damage",
+      "damage": 1,
+      "effect": {
+        "description": "no special effect"
+      }
+    }
+  ],
+  "inventory": {
+    "helmet": "0",
+    "neck": "0",
+    "back": "0",
+    "torso": "0",
+    "hand": "0",
+    "leg": "0",
+    "feet": "0",
+    "left_hand": "0",
+    "right_hand": "0",
+    "ring_1": "0",
+    "ring_2": "0"
+  }
+}

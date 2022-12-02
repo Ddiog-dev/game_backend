@@ -13,7 +13,7 @@ add_library(game_backend-lib
         src/models/buildings/Building.hpp
         src/models/Tier.hpp
         src/models/state/GoldState.hpp
-        src/models/state/ManaState.hpp src/models/state/State.hpp src/models/state/BuildingState.hpp src/utils/ObjectFileMapper.hpp)
+        src/models/state/ManaState.hpp src/models/state/State.hpp src/models/state/BuildingState.hpp src/utils/ObjectFileMapper.hpp src/models/staff/character.hpp src/models/staff/capacity-effect.hpp src/models/staff/capacity.hpp src/models/staff/character-inventory.hpp src/models/staff/character-stat.hpp src/models/state/CharacterState.hpp)
 
 ## link libs
 find_package(oatpp)
@@ -23,11 +23,6 @@ target_link_libraries(game_backend-lib
         )
 
 set(JSON_BuildTests OFF CACHE INTERNAL "")
-add_subdirectory(include/json)
-target_link_libraries(game_backend-lib
-        PUBLIC nlohmann_json::nlohmann_json
-        )
-
 target_include_directories(game_backend-lib PUBLIC src)
 
 ## add executables

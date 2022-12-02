@@ -56,6 +56,16 @@ public:
         return response;
     }
 
+    // CHARACTERS
+
+
+    ENDPOINT("GET", "/character/{id}", character, PATH(Int32, id)) {
+        auto dto = Character_informations::Character::createShared();
+        dto = Character_informations::Character::getCharacter(id);
+        std::shared_ptr<OutgoingResponse> response = createDtoResponse(Status::CODE_200, dto);
+        MyController::add_response(response);
+        return response;
+    }
     // TODO Insert Your endpoints here !!!
 
 private:

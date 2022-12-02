@@ -19,6 +19,7 @@
 #include "utils/ObjectFileMapper.hpp"
 #include <iostream>
 #include <fstream>
+#include "CharacterState.hpp"
 
 using namespace std;
 
@@ -28,6 +29,7 @@ class State : public oatpp::DTO {
     DTO_FIELD(Object<ManaState>, mana);   // Current manastate
     DTO_FIELD(Object<GoldState>, gold);     // Current goldstate
     DTO_FIELD(Object<BuildingStateRepresentation::BuildingState>, building); // state of all buildings
+    DTO_FIELD(Object<CharacterState>, character); // state of all buildings
 
 public:
 

@@ -3,7 +3,6 @@
 //
 
 #include <string>
-#include "nlohmann/json.hpp"
 #include <oatpp/core/Types.hpp>
 #include "oatpp/core/data/mapping/type/Object.hpp"
 #include "oatpp/core/macro/codegen.hpp"
@@ -55,7 +54,6 @@ namespace Building_Informations {
 
     public:
         static oatpp::data::mapping::type::DTOWrapper<Building> getBuilding(int building) {
-            //assert(building >= 0 && building < filesPaths->length());
             try{
                 return ObjectFileMapper::readFromFile<Building>(filesPaths[building]);
             } catch (runtime_error &error){

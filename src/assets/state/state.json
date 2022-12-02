@@ -1,1 +1,1 @@
-{"mana":{"amount":51,"income":2},"gold":{"amount":184,"income":5},"building":{"buildings":[{"name":"Forum","tier":{"description":"","income":2,"incomeType":"Gold","cost":1}},{"name":"Tavern","tier":{"description":"","income":0,"incomeType":"Gold","cost":50}},{"name":"Mine","tier":{"description":"","income":2,"incomeType":"Mana","cost":1}},{"name":"Potion shop","tier":{"description":"","income":3,"incomeType":"Gold","cost":1}}]}}
+{"mana":{"amount":0,"income":0},"gold":{"amount":27,"income":3},"building":{"buildings":[]}}
